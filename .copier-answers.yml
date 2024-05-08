@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.2.6
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: Pier2690@gmail.com
+author_name: Pierluigi
+data_format: string
+file_extension: ''
+has_binder: true
+has_settings: false
+kind: frontend
+labextension_name: jupyterlab_workflow
+mimetype: ''
+mimetype_name: ''
+project_short_description: Manage and modify HPC workflows directly from your jupyterLab
+    environment with an intuitive interface.
+python_name: jupyterlab_workflow
+repository: https://github.com/Pier2690/jupyterlab-workflow
+test: true
+viewer_name: ''
+
