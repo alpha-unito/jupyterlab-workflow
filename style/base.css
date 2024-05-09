@@ -4,14 +4,78 @@
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
 
-.jp-TopArea{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
-    align-items: center;
-    padding: 2px;
-    border-bottom: 1px solid var(--jp-border-color2);
+.jp-TopArea {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  color: #006b8b;
+  border-bottom: 1px solid var(--jp-border-color2);
+  border-radius: 5px;
+  margin-right: 32px;
+  height: 100%;
+}
+
+.jp-EditBarContainer {
+  display: flex;
+  justify-content: end;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  color: #006b8b;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+}
+
+.jp-EditBarButton {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  color: #006b8b;
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+}
+
+.jp-EditBarButton:hover {
+  background-color: #e4e4e4;
+}
+
+.jp-GearIcon {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+}
+
+.jp-GearIcon svg{
+    color: black;
+    height: 15px;
+    width: 15px;
+  }
+
+.jp-PanelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.jp-PanelContainer hr {
+    width: 80%;
+    height: 2px;
+    background-color: #006b8b;
     border-radius: 5px;
-    margin-right: 10px;
 }
