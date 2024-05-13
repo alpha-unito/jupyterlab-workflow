@@ -42,6 +42,35 @@ class EditBar extends Widget {
       // Create a new panel and add it to the main area
       this.panel = new Panel();
       this.panel.node.style.overflowY = 'auto';
+      // Create buttons
+      const CancelButton = document.createElement('button');
+      CancelButton.textContent = 'Cancel';
+      CancelButton.style.position = 'sticky';
+      CancelButton.style.bottom = '0';
+
+      const ResetButton = document.createElement('button');
+      ResetButton.textContent = 'Reset';
+      ResetButton.style.position = 'sticky';
+      ResetButton.style.bottom = '0';
+
+      const EditButton = document.createElement('button');
+      EditButton.textContent = 'Edit';
+      EditButton.style.position = 'sticky';
+      EditButton.style.bottom = '0';
+
+      // Create div with class 'BottomButtons'
+      const div = document.createElement('div');
+      div.className = 'jp-BottomButtons';
+      div.style.position = 'sticky';
+      div.style.bottom = '0';
+
+      // Append buttons to div
+      div.appendChild(CancelButton);
+      div.appendChild(ResetButton);
+      div.appendChild(EditButton);
+
+      // Append div to panel node
+      this.panel.node.appendChild(div);
       this.panel.id = DOMUtils.createDomID();
       this.panel.title.label = 'Metadata Editor';
       this.panel.title.closable = true;

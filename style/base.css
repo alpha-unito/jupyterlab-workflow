@@ -73,13 +73,24 @@
   width: 100%;
 }
 
-.jp-PanelContainer .jp-StartHR {
+.jp-PanelHeader {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  width: 100%;
+}
+
+.jp-PanelHeader .jp-StartHR {
   width: 80%;
   height: 2px;
   background-color: #006b8b;
   border-radius: 5px;
 }
 
+.jp-PanelHeader h2,
 .jp-PanelContainer h2 {
   font-size: 20px;
   font-weight: bold;
@@ -127,7 +138,7 @@
   font-weight: normal;
 }
 
-.jp-InputsContainer {
+.jp-OutputsInputsContainer {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -151,7 +162,7 @@
   width: 70%;
 }
 
-.jp-InputsContainer .jp-CheckboxInline {
+.jp-OutputsInputsContainer .jp-CheckboxInline {
   width: 100%;
 }
 
@@ -270,13 +281,106 @@
   background-color: #00ff00;
 }
 
+.jp-Delete p {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  font-size: medium;
+  margin-left: 10px;
+}
+
+.jp-ScatterContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  width: 100%;
+}
+
+.jp-TargetContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.jp-LocationButton {
+  height: 27px;
+  width: 27px;
+  text-align: center;
+  border: none;
+  margin: 5px;
+  border-radius: 15px;
+  font-size: 20px;
+  background-color: #006b8b;
+  color: white;
+  cursor: pointer;
+}
+
+.jp-LocationButton:hover {
+  background-color: #00546e;
+}
+
 .jp-BottomButtons {
-  bottom: 0;
+  border-top: 1px solid var(--jp-border-color2);
+  background-color: whitesmoke;
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
   column-gap: 10px;
   padding: 10px;
+  height: 40px;
+  padding: 10px;
   width: 100%;
 }
+
+.jp-BottomButtons button {
+  border-radius: 5px;
+  text-align: center;
+  width: 8vh;
+  height: 30px;
+  border: 1px solid rgb(203, 203, 203);
+}
+
+.jp-BottomButtons button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.jp-BottomButtons > button:nth-child(1) {
+  background-color: white;
+}
+
+.jp-BottomButtons > button:nth-child(1):hover {
+  background-color: #c1c1c1;
+}
+
+.jp-BottomButtons > button:nth-child(2) {
+  background-color: red;
+  color: white;
+}
+
+.jp-BottomButtons > button:nth-child(2):hover {
+  background-color: #a91010;
+}
+
+.jp-BottomButtons > button:nth-child(3) {
+  background-color: black;
+  color: white;
+}
+
+.jp-BottomButtons > button:nth-child(3):hover {
+  background-color: #2a2626;
+}
+
+/* .jp-CodeMirror{
+  height: 500px;
+  width: 100%;
+} */
