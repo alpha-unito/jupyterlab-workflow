@@ -30,7 +30,7 @@ class EditBar extends Widget {
     button.appendChild(icon);
 
     const text = document.createElement('span');
-    text.textContent = 'Edit Metadati';
+    text.textContent = 'Edit Workflow Step';
     button.appendChild(text);
 
     button.onclick = () => {
@@ -41,6 +41,7 @@ class EditBar extends Widget {
 
       // Create a new panel and add it to the main area
       this.panel = new Panel();
+      this.panel.node.style.overflowY = 'auto';
       this.panel.id = DOMUtils.createDomID();
       this.panel.title.label = 'Metadata Editor';
       this.panel.title.closable = true;
