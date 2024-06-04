@@ -118,7 +118,7 @@ export function createDivWithText() {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        <p>capire come mettere codemirror</p>
+        <p>capire come mettere CodeMirror</p>
         {/* <MyEditor /> */}
       </div>
       <hr />

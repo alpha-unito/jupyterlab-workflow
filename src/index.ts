@@ -42,6 +42,8 @@ class EditBar extends Widget {
       // Create a new panel and add it to the main area
       this.panel = new Panel();
       this.panel.node.style.overflowY = 'auto';
+      this.panel.node.style.opacity = '0';
+      this.panel.node.style.transition = 'opacity 0.8s ease-in-out';
       // Create buttons
       const CancelButton = document.createElement('button');
       CancelButton.textContent = 'Cancel';
@@ -86,6 +88,13 @@ class EditBar extends Widget {
 
       // Add the widget directly to the panel
       this.panel.addWidget(widget);
+
+      // After adding the elements to the DOM, make it visible
+      setTimeout(() => {
+        if (this.panel) {
+          this.panel.node.style.opacity = '1';
+        }
+      }, 0);
     };
 
     div.appendChild(button);
@@ -124,6 +133,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
         cell.node.insertBefore(editBar.node, cell.node.firstChild);
       }
 
+      cell?.node.addEventListener('click', () => {
+        const cellMetadata = cell.model.metadata;
+        const metadataJson = JSON.stringify(cellMetadata);
+        console.log('Metadata JSON:', metadataJson);
+
+        if ('workflow' in cell.model.metadata) {
+          // Change the background color of the cell
+          cell.node.style.backgroundColor = '#D2D2D2';
+        }
+      });
       // Update the previous cell
       previousCell = cell;
     });

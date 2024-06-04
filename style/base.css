@@ -358,27 +358,27 @@
   background-color: white;
 }
 
-.jp-BottomButtons > button:nth-child(1):hover {
+/* .jp-BottomButtons > button:nth-child(1):hover {
   background-color: #c1c1c1;
-}
+} */
 
 .jp-BottomButtons > button:nth-child(2) {
   background-color: red;
   color: white;
 }
 
-.jp-BottomButtons > button:nth-child(2):hover {
-  background-color: #a91010;
-}
+/* .jp-BottomButtons > button:nth-child(2):hover {
+  background-color: #ff0000;
+} */
 
 .jp-BottomButtons > button:nth-child(3) {
   background-color: black;
   color: white;
 }
 
-.jp-BottomButtons > button:nth-child(3):hover {
-  background-color: #2a2626;
-}
+/* .jp-BottomButtons > button:nth-child(3):hover {
+  background-color: #676161;
+} */
 
 /* .jp-CodeMirror{
   height: 500px;
