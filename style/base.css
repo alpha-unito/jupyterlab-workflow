@@ -289,7 +289,7 @@
   margin-left: 10px;
 }
 
-.jp-ScatterContainer{
+.jp-ScatterContainer {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -374,6 +374,78 @@
 .jp-BottomButtons > button:nth-child(3) {
   background-color: black;
   color: white;
+}
+
+.editorCodeMirror {
+  display: flex;
+  height: 500px;
+  width: 100%;
+  margin-top: 30px;
+  border: 1px solid #006b8b;
+  box-sizing: border-box;
+}
+
+.CodeMirror {
+  height: 100%;
+  width: 100%;
+  line-height: 1.5;
+  font-size: medium;
+  background-color: #f2f2f2; /* Light gray background color */
+  color: #181818; /* Dark gray text color */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font */
+}
+
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 1px solid #383838; /* Dark gray cursor color */
+}
+
+.cm-s-default .cm-keyword {
+  color: #7b68ee;
+} /* Medium slate blue color for JSON keys */
+.cm-s-default .cm-atom {
+  color: #2e8b57;
+} /* Sea green color for JSON values */
+.cm-s-default .cm-string {
+  color: #a0522d;
+} /* Sienna color for JSON strings */
+.cm-s-default .cm-bracket {
+  color: #b22222;
+} /* Firebrick color for JSON brackets */
+
+.react-codemirror2 {
+  width: 100%;
+}
+
+.jp-jsonEditTitle {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  align-items: center;
+  color: #000000;
+  border-bottom: 1px solid var(--jp-border-color2);
+  border-radius: 5px;
+  margin-right: 32px;
+  height: 50px;
+  font-size: 30px;
+  padding: 15px;
+  margin: 5px 0 5px 0;
+}
+
+.jp-jsonEditDescription{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: #000000;
+  border-radius: 5px;
+  width: 60%;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+  font-size: 20px;
+  padding: 10px;
 }
 
 /* .jp-BottomButtons > button:nth-child(3):hover {

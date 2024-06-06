@@ -10,6 +10,7 @@ import { INotebookTracker } from '@jupyterlab/notebook';
 import { Cell } from '@jupyterlab/cells';
 import { topArea } from './widget';
 import { settingsIcon } from '@jupyterlab/ui-components';
+import { createEditorWidget } from './widget';
 import { createDivWithText } from './widget';
 /**
  * Initialization data for the jupyterlab_workflow extension.
@@ -17,7 +18,10 @@ import { createDivWithText } from './widget';
 
 class EditBar extends Widget {
   private panel: Panel | null = null;
-  constructor(private app: JupyterFrontEnd) {
+  constructor(
+    private app: JupyterFrontEnd,
+    public metadata: any
+  ) {
     super();
     const div = document.createElement('div');
     div.className = 'jp-EditBarContainer';
@@ -32,6 +36,43 @@ class EditBar extends Widget {
     const text = document.createElement('span');
     text.textContent = 'Edit Workflow Step';
     button.appendChild(text);
+
+    const newPageButton = document.createElement('button');
+    newPageButton.className = 'jp-EditBarButton';
+    newPageButton.textContent = 'Json Editor';
+
+    newPageButton.onclick = () => {
+      const newPanel = new Panel();
+      newPanel.id = DOMUtils.createDomID();
+      newPanel.title.label = 'Json Editor';
+      newPanel.node.style.opacity = '0';
+      newPanel.node.style.transition = 'opacity 0.8s ease-in-out';
+      newPanel.title.closable = true;
+
+      const titleWidget = new Widget();
+      titleWidget.node.innerText = 'Welcome to the JSON editor!';
+      titleWidget.node.classList.add('jp-jsonEditTitle'); // Add a CSS class to the title widget
+
+      const descriptionWidget = new Widget();
+      descriptionWidget.node.innerText =
+        'This is a JSON editor. You can use it to edit the metadata.';
+      descriptionWidget.node.classList.add('jp-jsonEditDescription'); // Add a CSS class to the description widget
+
+      newPanel.addWidget(titleWidget);
+      newPanel.addWidget(descriptionWidget);
+
+      const editorWidget = createEditorWidget(metadata);
+
+      newPanel.addWidget(editorWidget);
+
+      this.app.shell.add(newPanel, 'main', { mode: 'split-right' });
+
+      setTimeout(() => {
+        if (newPanel) {
+          newPanel.node.style.opacity = '1';
+        }
+      }, 0);
+    };
 
     button.onclick = () => {
       // If a panel is already open, remove it from the shell and dispose it
@@ -98,6 +139,7 @@ class EditBar extends Widget {
     };
 
     div.appendChild(button);
+    div.appendChild(newPageButton); // Append the new button to the div
     this.node.appendChild(div);
   }
 }
@@ -129,7 +171,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
       const cell = tracker.activeCell;
       if (cell && cell.model.type === 'code') {
-        const editBar = new EditBar(app);
+        const cellMetadata = cell.model.metadata;
+        const editBar = new EditBar(app, cellMetadata);
         cell.node.insertBefore(editBar.node, cell.node.firstChild);
       }
 

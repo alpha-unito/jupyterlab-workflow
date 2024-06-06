@@ -121,8 +121,7 @@ export function createDivWithText() {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        <p>capire come mettere CodeMirror</p>
-        {/* {<MyEditor />} */}
+        <MyEditor metadata={{}} />
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
@@ -229,8 +228,6 @@ export function createDivWithText() {
         </div>
       </div>
       <hr />
-      <h3>prova metadati</h3>
-      <MyEditor />
     </div>
   );
 }
@@ -261,16 +258,16 @@ function InputWithButtons() {
   );
 }
 
-function MyEditor() {
-  const [value, setValue] = useState('{\n\t"key": "value"\n}');
+export function MyEditor({ metadata }: { metadata: any }) {
+  const [value, setValue] = useState(JSON.stringify(metadata, null, 2));
 
   return (
-    <div style={{ width: '300px', height: '200px' }}>
+    <div className="editorCodeMirror">
       <CodeMirror
         value={value}
         options={{
           lineNumbers: true,
-          indentUnit: 2,
+          theme: 'darcula',
           mode: 'application/json',
           lineWrapping: true
         }}
@@ -282,7 +279,9 @@ function MyEditor() {
   );
 }
 
-export default MyEditor;
+export function createEditorWidget(metadata: any) {
+  return ReactWidget.create(<MyEditor metadata={metadata} />);
+}
 
 /* function MyEditor() {
   const [value, setValue] = useState('');
