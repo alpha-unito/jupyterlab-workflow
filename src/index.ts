@@ -133,16 +133,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
         cell.node.insertBefore(editBar.node, cell.node.firstChild);
       }
 
-      cell?.node.addEventListener('click', () => {
-        const cellMetadata = cell.model.metadata;
-        const metadataJson = JSON.stringify(cellMetadata);
-        console.log('Metadata JSON:', metadataJson);
+      tracker.forEach(notebookPanel => {
+        notebookPanel.content.widgets.forEach(cell => {
+          const cellMetadata = cell.model.metadata;
+          const metadataJson = JSON.stringify(cellMetadata);
+          console.log('Metadata JSON:', metadataJson);
 
-        if ('workflow' in cell.model.metadata) {
-          // Change the background color of the cell
-          cell.node.style.backgroundColor = '#D2D2D2';
-        }
+          if ('workflow' in cell.model.metadata) {
+            // Change the background color of the cell
+            cell.node.style.backgroundColor = '#DBF9FF';
+          }
+        });
       });
+
       // Update the previous cell
       previousCell = cell;
     });

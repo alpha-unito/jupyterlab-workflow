@@ -5,6 +5,9 @@ import { ReactWidget } from '@jupyterlab/ui-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { Controlled as CodeMirror } from 'react-codemirror2';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
 
 function TopArea() {
   return <div className="jp-TopArea">Hello JupyterLab Workflow!</div>;
@@ -119,7 +122,7 @@ export function createDivWithText() {
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
         <p>capire come mettere CodeMirror</p>
-        {/* <MyEditor /> */}
+        {/* {<MyEditor />} */}
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
@@ -226,6 +229,8 @@ export function createDivWithText() {
         </div>
       </div>
       <hr />
+      <h3>prova metadati</h3>
+      <MyEditor />
     </div>
   );
 }
@@ -255,6 +260,29 @@ function InputWithButtons() {
     </div>
   );
 }
+
+function MyEditor() {
+  const [value, setValue] = useState('{\n\t"key": "value"\n}');
+
+  return (
+    <div style={{ width: '300px', height: '200px' }}>
+      <CodeMirror
+        value={value}
+        options={{
+          lineNumbers: true,
+          indentUnit: 2,
+          mode: 'application/json',
+          lineWrapping: true
+        }}
+        onBeforeChange={(editor, data, value) => {
+          setValue(value);
+        }}
+      />
+    </div>
+  );
+}
+
+export default MyEditor;
 
 /* function MyEditor() {
   const [value, setValue] = useState('');
