@@ -10,8 +10,11 @@ import { INotebookTracker } from '@jupyterlab/notebook';
 import { Cell } from '@jupyterlab/cells';
 import { topArea } from './widget';
 import { settingsIcon } from '@jupyterlab/ui-components';
+import { Dialog, showDialog } from '@jupyterlab/apputils';
 import { createEditorWidget } from './widget';
 import { createDivWithText } from './widget';
+import { checkIcon } from '@jupyterlab/ui-components';
+import { errorIcon } from '@jupyterlab/ui-components';
 /**
  * Initialization data for the jupyterlab_workflow extension.
  */
@@ -20,7 +23,8 @@ class EditBar extends Widget {
   private panel: Panel | null = null;
   constructor(
     private app: JupyterFrontEnd,
-    public metadata: any
+    metadata: any,
+    cell: any
   ) {
     super();
     const div = document.createElement('div');
@@ -62,9 +66,78 @@ class EditBar extends Widget {
       newPanel.addWidget(titleWidget);
       newPanel.addWidget(descriptionWidget);
 
-      const editorWidget = createEditorWidget(metadata);
+      let editorValue = JSON.stringify(metadata, null, 2);
+
+      const editorWidget = createEditorWidget(metadata, value => {
+        editorValue = value;
+      });
 
       newPanel.addWidget(editorWidget);
+
+      // Create a new button widget
+      const buttonWidget = new Widget();
+      buttonWidget.node.innerText = 'Update Metadata';
+      buttonWidget.node.classList.add('jp-jsonEditButton'); // Add a CSS class to the button widget
+
+      // Add an onclick event to the button
+      buttonWidget.node.onclick = () => {
+        try {
+          const newValue = JSON.parse(editorValue);
+          console.log('newValue', newValue);
+          // Update the metadata with the new value
+          metadata = newValue;
+          console.log('CLICKED');
+          cell.metadata = metadata;
+
+          // Create a widget with the success message and an icon
+          const successWidget = new Widget();
+          const iconElement = checkIcon.element({
+            tag: 'span',
+            height: '50px',
+            width: '50px',
+            elementPosition: 'center',
+            padding: '8px',
+            marginBottom: '20px',
+            backgroundColor: '#0CEF13',
+            borderRadius: '50%'
+          });
+
+          successWidget.node.innerHTML = `${iconElement.outerHTML} Metadata update successfully!`;
+
+          // Show a dialog with the success widget
+          showDialog({
+            title: 'Success',
+            body: successWidget,
+            buttons: [Dialog.okButton({ label: 'OK' })]
+          });
+        } catch (error) {
+          console.error('Invalid JSON:', error);
+
+          const errorWidget = new Widget();
+          const iconElement = errorIcon.element({
+            tag: 'span',
+            height: '50px',
+            width: '50px',
+            elementPosition: 'center',
+            padding: '8px',
+            marginBottom: '20px',
+            backgroundColor: '#FF3600',
+            borderRadius: '50%'
+          });
+
+          errorWidget.node.innerHTML = `${iconElement.outerHTML} Metadata fail to update!`;
+
+          // Show a dialog with the success widget
+          showDialog({
+            title: 'Error',
+            body: errorWidget,
+            buttons: [Dialog.okButton({ label: 'OK' })]
+          });
+        }
+      };
+
+      // Add the button widget to the panel
+      newPanel.addWidget(buttonWidget);
 
       setTimeout(() => {
         if (newPanel) {
@@ -171,7 +244,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const cell = tracker.activeCell;
       if (cell && cell.model.type === 'code') {
         const cellMetadata = cell.model.metadata;
-        const editBar = new EditBar(app, cellMetadata);
+        const editBar = new EditBar(app, cellMetadata, cell);
         cell.node.insertBefore(editBar.node, cell.node.firstChild);
       }
 

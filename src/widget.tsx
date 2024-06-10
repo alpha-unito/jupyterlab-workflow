@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Controlled as CodeMirror } from 'react-codemirror2';
+import { useEffect } from 'react';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 
@@ -121,7 +122,7 @@ export function createDivWithText() {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        <MyEditor metadata={{}} />
+        {/* <MyEditor metadata={{}} /> */}
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
@@ -258,8 +259,18 @@ function InputWithButtons() {
   );
 }
 
-export function MyEditor({ metadata }: { metadata: any }) {
+export function MyEditor({
+  metadata,
+  onValueChange
+}: {
+  metadata: any;
+  onValueChange: (value: string) => void;
+}) {
   const [value, setValue] = useState(JSON.stringify(metadata, null, 2));
+
+  useEffect(() => {
+    onValueChange(value);
+  }, [value, onValueChange]);
 
   return (
     <div className="editorContainer">
@@ -281,8 +292,13 @@ export function MyEditor({ metadata }: { metadata: any }) {
   );
 }
 
-export function createEditorWidget(metadata: any) {
-  return ReactWidget.create(<MyEditor metadata={metadata} />);
+export function createEditorWidget(
+  metadata: any,
+  onValueChange: (value: string) => void
+) {
+  return ReactWidget.create(
+    <MyEditor metadata={metadata} onValueChange={onValueChange} />
+  );
 }
 
 /* function MyEditor() {
