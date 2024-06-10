@@ -262,19 +262,21 @@ export function MyEditor({ metadata }: { metadata: any }) {
   const [value, setValue] = useState(JSON.stringify(metadata, null, 2));
 
   return (
-    <div className="editorCodeMirror">
-      <CodeMirror
-        value={value}
-        options={{
-          lineNumbers: true,
-          theme: 'darcula',
-          mode: 'application/json',
-          lineWrapping: true
-        }}
-        onBeforeChange={(editor, data, value) => {
-          setValue(value);
-        }}
-      />
+    <div className="editorContainer">
+      <div className="editorCodeMirror">
+        <CodeMirror
+          value={value}
+          options={{
+            lineNumbers: true,
+            theme: 'darcula',
+            mode: 'application/json',
+            lineWrapping: true
+          }}
+          onBeforeChange={(editor, data, value) => {
+            setValue(value);
+          }}
+        />
+      </div>
     </div>
   );
 }

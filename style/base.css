@@ -376,16 +376,25 @@
   color: white;
 }
 
+.editorContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .editorCodeMirror {
   display: flex;
   height: 500px;
-  width: 100%;
-  margin-top: 30px;
-  border: 1px solid #006b8b;
+  width: 90%;
+  margin: 30px 10px 0 10px;
+  padding: 10px;
+  border: 2px solid #006b8b;
+  border-radius: 5px;
   box-sizing: border-box;
 }
 
-.CodeMirror {
+.editorCodeMirror .CodeMirror {
   height: 100%;
   width: 100%;
   line-height: 1.5;
@@ -395,8 +404,18 @@
   font-family: 'Courier New', Courier, monospace; /* Monospace font */
 }
 
-.CodeMirror div.CodeMirror-cursor {
+.editorCodeMirror .CodeMirror div.CodeMirror-cursor {
   border-left: 1px solid #383838; /* Dark gray cursor color */
+}
+
+.editorCodeMirror .CodeMirror .CodeMirror-linenumber {
+  color: #006b8b;
+  font-weight: bold; /* Red color for line numbers */
+}
+
+.editorCodeMirror .CodeMirror .CodeMirror-gutters {
+  background-color: #f2f2f2; /* Light gray background color */
+  border-right: 1px solid #006b8b; /* Dark gray gutter color */
 }
 
 .cm-s-default .cm-keyword {

@@ -48,6 +48,7 @@ class EditBar extends Widget {
       newPanel.node.style.opacity = '0';
       newPanel.node.style.transition = 'opacity 0.8s ease-in-out';
       newPanel.title.closable = true;
+      this.app.shell.add(newPanel, 'main', { mode: 'split-right' });
 
       const titleWidget = new Widget();
       titleWidget.node.innerText = 'Welcome to the JSON editor!';
@@ -64,8 +65,6 @@ class EditBar extends Widget {
       const editorWidget = createEditorWidget(metadata);
 
       newPanel.addWidget(editorWidget);
-
-      this.app.shell.add(newPanel, 'main', { mode: 'split-right' });
 
       setTimeout(() => {
         if (newPanel) {
