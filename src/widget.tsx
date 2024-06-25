@@ -128,7 +128,7 @@ export function createDivWithText(metadata: any) {
                 <input
                   type="text"
                   placeholder="Type"
-                  defaultValue={item.value}
+                  defaultValue={item.value || item.valueFrom}
                 />
               </div>
               <div className="jp-Group">
