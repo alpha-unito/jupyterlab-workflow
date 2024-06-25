@@ -122,7 +122,7 @@ export function createDivWithText() {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        {/* <MyEditor metadata={{}} /> */}
+        <MyEditor metadata={{}} onValueChange={() => {}} />
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">

@@ -48,6 +48,7 @@ class EditBar extends Widget {
     newPageButton.onclick = () => {
       const newPanel = new Panel();
       newPanel.id = DOMUtils.createDomID();
+      newPanel.node.classList.add('jp-PanelBackground');
       newPanel.title.label = 'Json Editor';
       newPanel.node.style.opacity = '0';
       newPanel.node.style.transition = 'opacity 0.8s ease-in-out';
@@ -98,7 +99,7 @@ class EditBar extends Widget {
             elementPosition: 'center',
             padding: '8px',
             marginBottom: '20px',
-            backgroundColor: '#0CEF13',
+            backgroundColor: '#37DC27',
             borderRadius: '50%'
           });
 
@@ -154,6 +155,7 @@ class EditBar extends Widget {
 
       // Create a new panel and add it to the main area
       this.panel = new Panel();
+      this.panel.node.classList.add('jp-PanelBackground');
       this.panel.node.style.overflowY = 'auto';
       this.panel.node.style.opacity = '0';
       this.panel.node.style.transition = 'opacity 0.8s ease-in-out';

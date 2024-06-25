@@ -191,6 +191,7 @@
   text-align: center;
   align-items: center;
   flex-direction: column;
+  background-color: white;
   row-gap: 5px;
   margin: 10px 0 10px 0;
   border: 1px solid #006b8b;
@@ -385,9 +386,9 @@
 
 .editorCodeMirror {
   display: flex;
-  height: 500px;
+  max-height: 500px;
   width: 90%;
-  margin: 30px 10px 0 10px;
+  margin: 30px 10px 20px 10px;
   padding: 10px;
   border: 2px solid #006b8b;
   border-radius: 5px;
@@ -441,11 +442,9 @@
   text-align: center;
   font-weight: bold;
   align-items: center;
-  color: #000000;
   border-bottom: 1px solid var(--jp-border-color2);
   border-radius: 5px;
   margin-right: 32px;
-  height: 50px;
   font-size: 30px;
   padding: 15px;
   margin: 5px 0 5px 0;
@@ -456,13 +455,11 @@
   justify-content: center;
   text-align: center;
   align-items: center;
-  color: #000000;
   border-radius: 5px;
   width: 60%;
   margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
-  height: 50px;
   font-size: 20px;
   padding: 10px;
 }
@@ -482,6 +479,18 @@
   margin-right: auto;
   cursor: pointer;
 
+}
+
+.jp-jsonEditButton:hover{
+  background-color: #00546e;
+}
+
+.jp-PanelBackground{
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),  url(../src/img/sfondo.webp);
+  padding-top: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 /* .jp-BottomButtons > button:nth-child(3):hover {
