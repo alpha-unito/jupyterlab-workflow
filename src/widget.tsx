@@ -16,7 +16,15 @@ function TopArea() {
 
 export const topArea: Widget = ReactWidget.create(<TopArea />);
 
-export function createDivWithText() {
+export function createDivWithText(metadata: any) {
+  console.log('editorWIDGET', metadata);
+
+  const workflowStepIn = metadata?.workflow?.step?.in || [];
+  const workflowStepOut = metadata?.workflow?.step?.out || [];
+  const scatter = metadata?.workflow?.step?.scatter || [];
+
+  console.log('workflowStepIn', workflowStepIn);
+  console.log('workflowStepOut', workflowStepOut);
   return (
     <div className="jp-PanelContainer">
       <div className="jp-PanelHeader">
@@ -45,74 +53,47 @@ export function createDivWithText() {
               <FontAwesomeIcon icon={faEye} title="Toggle visibility" />
             </button>
           </div>
-          <div className="jp-Row">
-            <div className="jp-Delete">
-              <button className="jp-Button">Delete</button>
-            </div>
-            <div className="jp-Group">
-              <h3>Type</h3>
-              <select defaultValue="File">
-                <option>Name</option>
-                <option>File</option>
-                <option>Control</option>
-                <option>Environment</option>
-              </select>
-            </div>
-            <div className="jp-Group">
-              <h3>Value</h3>
-              <input type="text" placeholder="Type" defaultValue="merged" />
-            </div>
-            <div className="jp-Group">
-              <div className="jp-CheckboxInline">
-                <input type="checkbox" defaultChecked />
-                <p>From name</p>
-                <FontAwesomeIcon
-                  icon={faQuestionCircle}
-                  title="When checked....."
+          {workflowStepIn.map((item: any, index: any) => (
+            <div className="jp-Row" key={index}>
+              <div className="jp-Delete">
+                <p>{item.name}</p>
+                <button className="jp-Button">Delete</button>
+              </div>
+              <div className="jp-Group">
+                <h3>Type</h3>
+                <select defaultValue={item.type}>
+                  <option>name</option>
+                  <option>file</option>
+                  <option>control</option>
+                  <option>environment</option>
+                </select>
+              </div>
+              <div className="jp-Group">
+                <h3>Value</h3>
+                <input
+                  type="text"
+                  placeholder="Type"
+                  defaultValue={item.valueFrom}
                 />
               </div>
               <div className="jp-Group">
-                <h3>Serializer</h3>
-                <select defaultValue="Auto">
-                  <option>Auto</option>
-                </select>
+                <div className="jp-CheckboxInline">
+                  <input type="checkbox" defaultChecked />
+                  <p>From name</p>
+                  <FontAwesomeIcon
+                    icon={faQuestionCircle}
+                    title="When checked....."
+                  />
+                </div>
+                <div className="jp-Group">
+                  <h3>Serializer</h3>
+                  <select defaultValue="Auto">
+                    <option>Auto</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="jp-Row">
-            <div className="jp-Delete">
-              <button className="jp-Button">Delete</button>
-            </div>
-            <div className="jp-Group">
-              <h3>Type</h3>
-              <select defaultValue="File">
-                <option>Name</option>
-                <option>File</option>
-                <option>Control</option>
-                <option>Environment</option>
-              </select>
-            </div>
-            <div className="jp-Group">
-              <h3>Value</h3>
-              <input type="text" placeholder="Type" defaultValue="merged" />
-            </div>
-            <div className="jp-Group">
-              <div className="jp-CheckboxInline">
-                <input type="checkbox" defaultChecked />
-                <p>From name</p>
-                <FontAwesomeIcon
-                  icon={faQuestionCircle}
-                  title="When checked....."
-                />
-              </div>
-              <div className="jp-Group">
-                <h3>Serializer</h3>
-                <select defaultValue="Auto">
-                  <option>Auto</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          ))}
           <div className="jp-AddNameContainer">
             <input type="text" placeholder="Input Name" />
             <button className="jp-Button">Add</button>
@@ -122,80 +103,52 @@ export function createDivWithText() {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        <MyEditor metadata={{}} onValueChange={() => {}} />
+        <MyEditor metadata={{ scatter }} onValueChange={() => {}} />
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
         <h2>Outputs</h2>
         <div className="jp-List">
-          <div className="jp-Row">
-            <div className="jp-Delete">
-              <p>Output-file</p>
-              <button className="jp-Button">Delete</button>
-            </div>
-            <div className="jp-Group">
-              <h3>Type</h3>
-              <select defaultValue="File">
-                <option>Name</option>
-                <option>File</option>
-                <option>Control</option>
-              </select>
-            </div>
-            <div className="jp-Group">
-              <h3>Value</h3>
-              <input type="text" placeholder="Type" defaultValue="*.tar.gz" />
-            </div>
-            <div className="jp-Group">
-              <div className="jp-CheckboxInline">
-                <input type="checkbox" defaultChecked />
-                <p>From name</p>
-                <FontAwesomeIcon
-                  icon={faQuestionCircle}
-                  title="When checked....."
+          {workflowStepOut.map((item: any, index: any) => (
+            <div className="jp-Row" key={index}>
+              <div className="jp-Delete">
+                <p>{item.name}</p>
+                <button className="jp-Button">Delete</button>
+              </div>
+              <div className="jp-Group">
+                <h3>Type</h3>
+                <select defaultValue={item.type}>
+                  <option>name</option>
+                  <option>file</option>
+                  <option>control</option>
+                </select>
+              </div>
+              <div className="jp-Group">
+                <h3>Value</h3>
+                <input
+                  type="text"
+                  placeholder="Type"
+                  defaultValue={item.value}
                 />
               </div>
               <div className="jp-Group">
-                <h3>Serializer</h3>
-                <select defaultValue="Auto">
-                  <option>Auto</option>
-                </select>
+                <div className="jp-CheckboxInline">
+                  <input type="checkbox" defaultChecked />
+                  <p>From name</p>
+                  <FontAwesomeIcon
+                    icon={faQuestionCircle}
+                    title="When checked....."
+                  />
+                </div>
+                <div className="jp-Group">
+                  <h3>Serializer</h3>
+                  <select defaultValue="Auto">
+                    <option>Auto</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="jp-Row">
-            <div className="jp-Delete">
-              <p>Output-file</p>
-              <button className="jp-Button">Delete</button>
-            </div>
-            <div className="jp-Group">
-              <h3>Type</h3>
-              <select defaultValue="File">
-                <option>Name</option>
-                <option>File</option>
-                <option>Control</option>
-              </select>
-            </div>
-            <div className="jp-Group">
-              <h3>Value</h3>
-              <input type="text" placeholder="Type" defaultValue="*.tar.gz" />
-            </div>
-            <div className="jp-Group">
-              <div className="jp-CheckboxInline">
-                <input type="checkbox" defaultChecked />
-                <p>From name</p>
-                <FontAwesomeIcon
-                  icon={faQuestionCircle}
-                  title="When checked....."
-                />
-              </div>
-              <div className="jp-Group">
-                <h3>Serializer</h3>
-                <select defaultValue="Auto">
-                  <option>Auto</option>
-                </select>
-              </div>
-            </div>
-          </div>
+          ))}
           <div className="jp-AddNameContainer">
             <input type="text" placeholder="Output Name" />
             <button className="jp-Button">Add</button>

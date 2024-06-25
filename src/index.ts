@@ -195,7 +195,7 @@ class EditBar extends Widget {
 
       // Create a div with text using the createDivWithText function
       console.log(createDivWithText);
-      const divWithText = createDivWithText();
+      const divWithText = createDivWithText(metadata);
 
       console.log(divWithText);
       // Wrap the divWithText element inside a Widget
