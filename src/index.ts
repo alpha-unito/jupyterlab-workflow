@@ -5,6 +5,7 @@ import {
 import { DOMUtils } from '@jupyterlab/apputils';
 import { Widget } from '@lumino/widgets';
 import { ReactWidget } from '@jupyterlab/apputils';
+import React from 'react';
 import { Panel } from '@lumino/widgets';
 import { INotebookTracker } from '@jupyterlab/notebook';
 import { Cell } from '@jupyterlab/cells';
@@ -12,7 +13,7 @@ import { topArea } from './widget';
 import { settingsIcon } from '@jupyterlab/ui-components';
 import { Dialog, showDialog } from '@jupyterlab/apputils';
 import { createEditorWidget } from './widget';
-import { createDivWithText } from './widget';
+import { CreateDivWithText } from './widget';
 import { checkIcon } from '@jupyterlab/ui-components';
 import { errorIcon } from '@jupyterlab/ui-components';
 /**
@@ -194,8 +195,8 @@ class EditBar extends Widget {
       this.app.shell.add(this.panel, 'main', { mode: 'split-right' });
 
       // Create a div with text using the createDivWithText function
-      console.log(createDivWithText);
-      const divWithText = createDivWithText(metadata);
+      console.log(CreateDivWithText);
+      const divWithText = React.createElement(CreateDivWithText, { metadata });
 
       console.log(divWithText);
       // Wrap the divWithText element inside a Widget

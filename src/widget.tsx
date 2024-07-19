@@ -16,15 +16,44 @@ function TopArea() {
 
 export const topArea: Widget = ReactWidget.create(<TopArea />);
 
-export function createDivWithText(metadata: any) {
+export function CreateDivWithText({ metadata }: { metadata: any }) {
   console.log('editorWIDGET', metadata);
 
-  const workflowStepIn = metadata?.workflow?.step?.in || [];
-  const workflowStepOut = metadata?.workflow?.step?.out || [];
+  const initialWorkflowStepIn = metadata?.workflow?.step?.in || [];
+  const [workflowStepIn, setWorkflowStepIn] = useState(initialWorkflowStepIn);
+  const [inputName, setInputName] = useState('');
+
+  const handleAddInputClick = () => {
+    const newItem = {
+      name: inputName,
+      type: 'name', // default type
+      valueFrom: '' // default value
+    };
+    setWorkflowStepIn([...workflowStepIn, newItem]);
+    setInputName(''); // clear the input field
+  };
+
+  const initialWorkflowStepOut = metadata?.workflow?.step?.out || [];
+  const [workflowStepOut, setWorkflowStepOut] = useState(
+    initialWorkflowStepOut
+  );
+  const [outputName, setOutputName] = useState('');
+
+  const handleAddOutputClick = () => {
+    const newItem = {
+      name: outputName,
+      type: 'name', // default type
+      valueFrom: '' // default value
+    };
+    setWorkflowStepOut([...workflowStepOut, newItem]);
+    setOutputName(''); // clear the output field
+  };
+
   const scatter = metadata?.workflow?.step?.scatter || [];
 
   console.log('workflowStepIn', workflowStepIn);
   console.log('workflowStepOut', workflowStepOut);
+
   return (
     <div className="jp-PanelContainer">
       <div className="jp-PanelHeader">
@@ -51,6 +80,17 @@ export function createDivWithText(metadata: any) {
             <p>Automatically infer input dependencies</p>
             <button className="jp-ButtonEye">
               <FontAwesomeIcon icon={faEye} title="Toggle visibility" />
+            </button>
+          </div>
+          <div className="jp-AddNameContainer">
+            <input
+              type="text"
+              placeholder="Input Name"
+              value={inputName}
+              onChange={e => setInputName(e.target.value)}
+            />
+            <button className="jp-Button" onClick={handleAddInputClick}>
+              Add
             </button>
           </div>
           {workflowStepIn.map((item: any, index: any) => (
@@ -94,10 +134,6 @@ export function createDivWithText(metadata: any) {
               </div>
             </div>
           ))}
-          <div className="jp-AddNameContainer">
-            <input type="text" placeholder="Input Name" />
-            <button className="jp-Button">Add</button>
-          </div>
         </div>
       </div>
       <hr />
@@ -109,6 +145,17 @@ export function createDivWithText(metadata: any) {
       <div className="jp-OutputsInputsContainer">
         <h2>Outputs</h2>
         <div className="jp-List">
+          <div className="jp-AddNameContainer">
+            <input
+              type="text"
+              placeholder="Output Name"
+              value={outputName}
+              onChange={e => setOutputName(e.target.value)}
+            />
+            <button className="jp-Button" onClick={handleAddOutputClick}>
+              Add
+            </button>
+          </div>
           {workflowStepOut.map((item: any, index: any) => (
             <div className="jp-Row" key={index}>
               <div className="jp-Delete">
@@ -149,10 +196,6 @@ export function createDivWithText(metadata: any) {
               </div>
             </div>
           ))}
-          <div className="jp-AddNameContainer">
-            <input type="text" placeholder="Output Name" />
-            <button className="jp-Button">Add</button>
-          </div>
         </div>
       </div>
       <hr />

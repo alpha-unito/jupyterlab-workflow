@@ -485,7 +485,7 @@
 }
 
 .jp-PanelBackground{
-  background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),  url(../src/img/sfondo.webp);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),  url(../src/img/sfondo.webp);
   padding-top: 20px;
   background-repeat: no-repeat;
   background-position: center;
