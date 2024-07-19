@@ -22,8 +22,14 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
   const initialWorkflowStepIn = metadata?.workflow?.step?.in || [];
   const [workflowStepIn, setWorkflowStepIn] = useState(initialWorkflowStepIn);
   const [inputName, setInputName] = useState('');
+  const [inputError, setInputError] = useState(false);
 
   const handleAddInputClick = () => {
+    if (inputName.trim() === '') {
+      setInputError(true);
+      return;
+    }
+
     const newItem = {
       name: inputName,
       type: 'name', // default type
@@ -31,6 +37,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     };
     setWorkflowStepIn([...workflowStepIn, newItem]);
     setInputName(''); // clear the input field
+    setInputError(false); // clear the error state
   };
 
   const initialWorkflowStepOut = metadata?.workflow?.step?.out || [];
@@ -38,8 +45,14 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     initialWorkflowStepOut
   );
   const [outputName, setOutputName] = useState('');
+  const [outputError, setOutputError] = useState(false);
 
   const handleAddOutputClick = () => {
+    if (outputName.trim() === '') {
+      setOutputError(true);
+      return;
+    }
+
     const newItem = {
       name: outputName,
       type: 'name', // default type
@@ -88,10 +101,14 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               placeholder="Input Name"
               value={inputName}
               onChange={e => setInputName(e.target.value)}
+              className={inputError ? 'jp-InputError' : ''}
             />
             <button className="jp-Button" onClick={handleAddInputClick}>
               Add
             </button>
+          </div>
+          <div className="jp-InputErrorText jp-ErroText">
+            {inputError && 'WARNING: Please enter a valid input name'}
           </div>
           {workflowStepIn.map((item: any, index: any) => (
             <div className="jp-Row" key={index}>
@@ -151,10 +168,14 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               placeholder="Output Name"
               value={outputName}
               onChange={e => setOutputName(e.target.value)}
+              className={outputError ? 'jp-InputError' : ''}
             />
             <button className="jp-Button" onClick={handleAddOutputClick}>
               Add
             </button>
+          </div>
+          <div className="jp-InputErrorText jp-ErroText">
+            {outputError && 'WARNING: Please enter a valid output name'}
           </div>
           {workflowStepOut.map((item: any, index: any) => (
             <div className="jp-Row" key={index}>

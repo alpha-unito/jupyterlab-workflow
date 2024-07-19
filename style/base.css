@@ -90,6 +90,10 @@
   border-radius: 5px;
 }
 
+.jp-PanelHeader h1{
+  color: black;
+}
+
 .jp-PanelHeader h2,
 .jp-PanelContainer h2 {
   font-size: 20px;
@@ -136,6 +140,7 @@
 .jp-CheckboxInline p {
   font-size: 15px;
   font-weight: normal;
+  color: black;
 }
 
 .jp-OutputsInputsContainer {
@@ -288,6 +293,7 @@
   justify-content: start;
   font-size: medium;
   margin-left: 10px;
+  color: black;
 }
 
 .jp-ScatterContainer {
@@ -490,6 +496,16 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.jp-InputError{
+  border: 2px solid red;
+}
+
+.jp-ErroText{
+  color: red;
+  font-weight: bold;
+  padding: 4px;
 }
 
 /* .jp-BottomButtons > button:nth-child(3):hover {
