@@ -163,18 +163,12 @@ class EditBar extends Widget {
       // Create buttons
       const CancelButton = document.createElement('button');
       CancelButton.textContent = 'Cancel';
-      CancelButton.style.position = 'sticky';
-      CancelButton.style.bottom = '0';
 
       const ResetButton = document.createElement('button');
       ResetButton.textContent = 'Reset';
-      ResetButton.style.position = 'sticky';
-      ResetButton.style.bottom = '0';
 
       const EditButton = document.createElement('button');
       EditButton.textContent = 'Edit';
-      EditButton.style.position = 'sticky';
-      EditButton.style.bottom = '0';
 
       // Create div with class 'BottomButtons'
       const div = document.createElement('div');

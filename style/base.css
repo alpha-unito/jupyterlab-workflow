@@ -345,6 +345,8 @@
   height: 40px;
   padding: 10px;
   width: 100%;
+  position: sticky;
+  bottom: 0;
 }
 
 .jp-BottomButtons button {

@@ -293,6 +293,11 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
         </div>
       </div>
       <hr />
+      {/* <div className="jp-BottomButtons">
+        <button>Cancel</button>
+        <button>Reset</button>
+        <button>Edit</button>
+      </div> */}
     </div>
   );
 }
