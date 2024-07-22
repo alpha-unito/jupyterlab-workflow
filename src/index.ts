@@ -170,6 +170,10 @@ class EditBar extends Widget {
       const EditButton = document.createElement('button');
       EditButton.textContent = 'Edit';
 
+      EditButton.onclick = () => {
+        console.log('EDITT: ', metadata);
+      };
+
       // Create div with class 'BottomButtons'
       const div = document.createElement('div');
       div.className = 'jp-BottomButtons';

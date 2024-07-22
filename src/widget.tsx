@@ -46,6 +46,10 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       valueFrom: '' // default value
     };
     setWorkflowStepIn([...workflowStepIn, newItem]);
+
+    metadata.workflow.step.in = [...workflowStepIn, newItem];
+    console.log('metadata', metadata);
+
     setInputName(''); // clear the input field
     setInputRepeatError(false); // clear the error state
     setInputError(false); // clear the error state
@@ -88,6 +92,10 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       valueFrom: '' // default value
     };
     setWorkflowStepOut([...workflowStepOut, newItem]);
+
+    metadata.workflow.step.out = [...workflowStepOut, newItem];
+    console.log('metadata', metadata);
+
     setOutputName(''); // clear the output field
     setOutputRepeatError(false); // clear the error state
     setOutputError(false); // clear the error state
