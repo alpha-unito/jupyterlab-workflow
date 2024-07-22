@@ -23,10 +23,20 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
   const [workflowStepIn, setWorkflowStepIn] = useState(initialWorkflowStepIn);
   const [inputName, setInputName] = useState('');
   const [inputError, setInputError] = useState(false);
+  const [inputRepeatError, setInputRepeatError] = useState(false);
+  const [outputRepeatError, setOutputRepeatError] = useState(false);
 
   const handleAddInputClick = () => {
+    setInputRepeatError(false); // clear the error state
+    setInputError(false); // clear the error state
+
     if (inputName.trim() === '') {
       setInputError(true);
+      return;
+    }
+
+    if (workflowStepIn.some((item: any) => item.name === inputName)) {
+      setInputRepeatError(true);
       return;
     }
 
@@ -37,6 +47,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     };
     setWorkflowStepIn([...workflowStepIn, newItem]);
     setInputName(''); // clear the input field
+    setInputRepeatError(false); // clear the error state
     setInputError(false); // clear the error state
   };
 
@@ -47,9 +58,27 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
   const [outputName, setOutputName] = useState('');
   const [outputError, setOutputError] = useState(false);
 
+  const handleDeleteInputClick = (name: string) => {
+    setWorkflowStepIn(workflowStepIn.filter((item: any) => item.name !== name));
+  };
+
+  const handleDeleteOutputClick = (name: string) => {
+    setWorkflowStepOut(
+      workflowStepOut.filter((item: any) => item.name !== name)
+    );
+  };
+
   const handleAddOutputClick = () => {
+    setOutputRepeatError(false); // clear the error state
+    setOutputError(false); // clear the error state
+
     if (outputName.trim() === '') {
       setOutputError(true);
+      return;
+    }
+
+    if (workflowStepOut.some((item: any) => item.name === outputName)) {
+      setOutputRepeatError(true);
       return;
     }
 
@@ -60,6 +89,8 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     };
     setWorkflowStepOut([...workflowStepOut, newItem]);
     setOutputName(''); // clear the output field
+    setOutputRepeatError(false); // clear the error state
+    setOutputError(false); // clear the error state
   };
 
   const scatter = metadata?.workflow?.step?.scatter || [];
@@ -101,20 +132,27 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               placeholder="Input Name"
               value={inputName}
               onChange={e => setInputName(e.target.value)}
-              className={inputError ? 'jp-InputError' : ''}
+              className={inputError || inputRepeatError ? 'jp-InputError' : ''}
             />
             <button className="jp-Button" onClick={handleAddInputClick}>
               Add
             </button>
           </div>
-          <div className="jp-InputErrorText jp-ErroText">
-            {inputError && 'WARNING: Please enter a valid input name'}
+          <div className="jp-InputErrorText jp-ErrorText">
+            {inputError && 'WARNING: Specify the input name you want to add.'}
+            {inputRepeatError &&
+              'WARNING: This name is already used. Please choose a different name.'}
           </div>
           {workflowStepIn.map((item: any, index: any) => (
             <div className="jp-Row" key={index}>
               <div className="jp-Delete">
                 <p>{item.name}</p>
-                <button className="jp-Button">Delete</button>
+                <button
+                  className="jp-Button"
+                  onClick={() => handleDeleteInputClick(item.name)}
+                >
+                  Delete
+                </button>
               </div>
               <div className="jp-Group">
                 <h3>Type</h3>
@@ -139,7 +177,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                   <p>From name</p>
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
-                    title="When checked....."
+                    title="When checked, the Value field is interpreted as a variable name from which to derive the actual value. When unchecked, the Value field is instead interpreted as a string value for the variable."
                   />
                 </div>
                 <div className="jp-Group">
@@ -168,20 +206,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               placeholder="Output Name"
               value={outputName}
               onChange={e => setOutputName(e.target.value)}
-              className={outputError ? 'jp-InputError' : ''}
+              className={
+                outputError || outputRepeatError ? 'jp-InputError' : ''
+              }
             />
             <button className="jp-Button" onClick={handleAddOutputClick}>
               Add
             </button>
           </div>
-          <div className="jp-InputErrorText jp-ErroText">
-            {outputError && 'WARNING: Please enter a valid output name'}
+          <div className="jp-InputErrorText jp-ErrorText">
+            {outputError && 'WARNING: Specify the input name you want to add.'}
+            {outputRepeatError &&
+              'WARNING: This name is already used. Please choose a different name.'}
           </div>
           {workflowStepOut.map((item: any, index: any) => (
             <div className="jp-Row" key={index}>
               <div className="jp-Delete">
                 <p>{item.name}</p>
-                <button className="jp-Button">Delete</button>
+                <button
+                  className="jp-Button"
+                  onClick={() => handleDeleteOutputClick(item.name)}
+                >
+                  Delete
+                </button>
               </div>
               <div className="jp-Group">
                 <h3>Type</h3>
@@ -205,7 +252,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                   <p>From name</p>
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
-                    title="When checked....."
+                    title="When checked, the Value field is interpreted as a variable name from which to derive the actual value. When unchecked, the Value field is instead interpreted as a string value for the variable."
                   />
                 </div>
                 <div className="jp-Group">
