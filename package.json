@@ -63,11 +63,13 @@
         "@jupyterlab/apputils": "^4.0.0",
         "@jupyterlab/cells": "^4.0.0",
         "@jupyterlab/notebook": "^4.0.0",
+        "@jupyterlab/services": "^4.0.0",
         "@jupyterlab/ui-components": "4.2.0",
         "@lumino/widgets": "2.3.2",
+        "@types/codemirror": "^5.0.0",
+        "codemirror": "^5.0.0",
         "react": "^17.0.2",
-        "react-codemirror2": "^7.0.0",
-        "@jupyterlab/services": "^4.0.0"
+        "react-codemirror2": "^7.2.1"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
