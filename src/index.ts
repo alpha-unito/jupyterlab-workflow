@@ -172,6 +172,7 @@ class EditBar extends Widget {
 
       EditButton.onclick = () => {
         console.log('EDITT: ', metadata);
+        console.log('EDITT UPDATED: ', EditorUpdatedMetadata);
       };
 
       // Create div with class 'BottomButtons'
@@ -194,7 +195,11 @@ class EditBar extends Widget {
 
       // Create a div with text using the createDivWithText function
       console.log(CreateDivWithText);
-      const divWithText = React.createElement(CreateDivWithText, { metadata });
+
+      const EditorUpdatedMetadata = JSON.parse(JSON.stringify(metadata));
+      const divWithText = React.createElement(CreateDivWithText, {
+        metadata: EditorUpdatedMetadata
+      });
 
       console.log(divWithText);
       // Wrap the divWithText element inside a Widget
