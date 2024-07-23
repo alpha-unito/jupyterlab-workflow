@@ -64,12 +64,22 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
 
   const handleDeleteInputClick = (name: string) => {
     setWorkflowStepIn(workflowStepIn.filter((item: any) => item.name !== name));
+    if (metadata.workflow.step.in) {
+      metadata.workflow.step.in = metadata.workflow.step.in.filter(
+        (item: any) => item.name !== name
+      );
+    }
   };
 
   const handleDeleteOutputClick = (name: string) => {
     setWorkflowStepOut(
       workflowStepOut.filter((item: any) => item.name !== name)
     );
+    if (metadata.workflow.step.out) {
+      metadata.workflow.step.out = metadata.workflow.step.out.filter(
+        (item: any) => item.name !== name
+      );
+    }
   };
 
   const handleAddOutputClick = () => {
