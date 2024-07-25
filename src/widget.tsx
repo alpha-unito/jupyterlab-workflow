@@ -111,6 +111,18 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setOutputError(false); // clear the error state
   };
 
+  const handleInputTypeChange = (index: any, field: any, value: any) => {
+    const newWorkflowStepIn = [...workflowStepIn];
+    newWorkflowStepIn[index][field] = value;
+    setWorkflowStepIn(newWorkflowStepIn);
+  };
+
+  const handleOutputTypeChange = (index: any, field: any, value: any) => {
+    const newWorkflowStepOut = [...workflowStepOut];
+    newWorkflowStepOut[index][field] = value;
+    setWorkflowStepIn(newWorkflowStepOut);
+  };
+
   const scatter = metadata?.workflow?.step?.scatter || [];
 
   console.log('workflowStepIn', workflowStepIn);
@@ -174,7 +186,12 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               </div>
               <div className="jp-Group">
                 <h3>Type</h3>
-                <select defaultValue={item.type}>
+                <select
+                  defaultValue={item.type}
+                  onChange={e =>
+                    handleInputTypeChange(index, 'type', e.target.value)
+                  }
+                >
                   <option>name</option>
                   <option>file</option>
                   <option>control</option>
@@ -186,7 +203,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                 <input
                   type="text"
                   placeholder="Type"
-                  defaultValue={item.valueFrom}
+                  defaultValue={item.value || item.valueFrom}
                 />
               </div>
               <div className="jp-Group">
@@ -250,10 +267,16 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               </div>
               <div className="jp-Group">
                 <h3>Type</h3>
-                <select defaultValue={item.type}>
+                <select
+                  defaultValue={item.type}
+                  onChange={e =>
+                    handleOutputTypeChange(index, 'type', e.target.value)
+                  }
+                >
                   <option>name</option>
                   <option>file</option>
                   <option>control</option>
+                  <option>environment</option>
                 </select>
               </div>
               <div className="jp-Group">
