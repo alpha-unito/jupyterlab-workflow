@@ -175,7 +175,7 @@ class EditBar extends Widget {
         console.log('EDITT UPDATED: ', EditorUpdatedMetadata);
         metadata = JSON.parse(JSON.stringify(EditorUpdatedMetadata));
         cell.model.deleteMetadata();
-        cell.model.setMetadata('workflow', EditorUpdatedMetadata.workflow);
+        cell.model.setMetadata('workflow', metadata.workflow);
         console.log('METADATA DOPO SET: ', cell.model.metadata);
       };
 

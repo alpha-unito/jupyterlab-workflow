@@ -42,8 +42,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
 
     const newItem = {
       name: inputName,
-      type: 'name', // default type
-      valueFrom: '' // default value
+      type: 'name' // default type
     };
     setWorkflowStepIn([...workflowStepIn, newItem]);
 
@@ -121,6 +120,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     const newWorkflowStepOut = [...workflowStepOut];
     newWorkflowStepOut[index][field] = value;
     setWorkflowStepIn(newWorkflowStepOut);
+  };
+
+  const [checkboxStates, setCheckboxStates] = useState({});
+
+  const handleCheckboxChange = (index: any, isChecked: any) => {
+    const newCheckboxStates = { ...checkboxStates, [index]: isChecked };
+    setCheckboxStates(newCheckboxStates);
+
+    const newWorkflowStepIn = [...workflowStepIn];
+    if (isChecked) {
+      newWorkflowStepIn[index]['valueFrom'] = newWorkflowStepIn[index]['value'];
+      delete newWorkflowStepIn[index]['value'];
+    } else {
+      newWorkflowStepIn[index]['value'] = newWorkflowStepIn[index]['valueFrom'];
+      delete newWorkflowStepIn[index]['valueFrom'];
+    }
+    setWorkflowStepIn(newWorkflowStepIn);
+  };
+
+  const handleInputChange = (index: any, field: any, value: any) => {
+    const newWorkflowStepIn = [...workflowStepIn];
+    newWorkflowStepIn[index][field] = value;
+    setWorkflowStepIn(newWorkflowStepIn);
   };
 
   const scatter = metadata?.workflow?.step?.scatter || [];
@@ -204,11 +226,26 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                   type="text"
                   placeholder="Type"
                   defaultValue={item.value || item.valueFrom}
+                  onChange={e =>
+                    handleInputChange(
+                      index,
+                      checkboxStates[index as keyof typeof checkboxStates]
+                        ? 'valueFrom'
+                        : 'value',
+                      e.target.value
+                    )
+                  }
                 />
               </div>
               <div className="jp-Group">
                 <div className="jp-CheckboxInline">
-                  <input type="checkbox" defaultChecked />
+                  <input
+                    type="checkbox"
+                    checked={!!item.valueFrom}
+                    onChange={e =>
+                      handleCheckboxChange(index, e.target.checked)
+                    }
+                  />
                   <p>From name</p>
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
