@@ -122,27 +122,46 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setWorkflowStepIn(newWorkflowStepOut);
   };
 
-  const [checkboxStates, setCheckboxStates] = useState({});
+  const [checkboxStatesIn, setCheckboxStatesIn] = useState({});
+  const [checkboxStatesOut, setCheckboxStatesOut] = useState({});
 
-  const handleCheckboxChange = (index: any, isChecked: any) => {
-    const newCheckboxStates = { ...checkboxStates, [index]: isChecked };
-    setCheckboxStates(newCheckboxStates);
+  const handleCheckboxChange = (
+    index: any,
+    isChecked: any,
+    isInput: boolean
+  ) => {
+    const newCheckboxStates = isInput
+      ? { ...checkboxStatesOut, [index]: isChecked }
+      : { ...checkboxStatesIn, [index]: isChecked };
+    isInput
+      ? setCheckboxStatesIn(newCheckboxStates)
+      : setCheckboxStatesOut(newCheckboxStates);
 
-    const newWorkflowStepIn = [...workflowStepIn];
+    const newWorkflowStep = isInput
+      ? [...workflowStepIn]
+      : [...workflowStepOut];
     if (isChecked) {
-      newWorkflowStepIn[index]['valueFrom'] = newWorkflowStepIn[index]['value'];
-      delete newWorkflowStepIn[index]['value'];
+      newWorkflowStep[index]['valueFrom'] = newWorkflowStep[index]['value'];
+      delete newWorkflowStep[index]['value'];
     } else {
-      newWorkflowStepIn[index]['value'] = newWorkflowStepIn[index]['valueFrom'];
-      delete newWorkflowStepIn[index]['valueFrom'];
+      newWorkflowStep[index]['value'] = newWorkflowStep[index]['valueFrom'];
+      delete newWorkflowStep[index]['valueFrom'];
     }
-    setWorkflowStepIn(newWorkflowStepIn);
+    isInput
+      ? setWorkflowStepIn(newWorkflowStep)
+      : setWorkflowStepOut(newWorkflowStep);
   };
 
   const handleInputChange = (index: any, field: any, value: any) => {
     const newWorkflowStepIn = [...workflowStepIn];
     newWorkflowStepIn[index][field] = value;
     setWorkflowStepIn(newWorkflowStepIn);
+  };
+
+  const handleOutputChange = (index: any, field: any, value: any) => {
+    const newWorkflowStepOut = [...workflowStepOut];
+    newWorkflowStepOut[index][field] = value;
+    setWorkflowStepOut(newWorkflowStepOut);
   };
 
   const scatter = metadata?.workflow?.step?.scatter || [];
@@ -229,7 +248,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                   onChange={e =>
                     handleInputChange(
                       index,
-                      checkboxStates[index as keyof typeof checkboxStates]
+                      checkboxStatesIn[index as keyof typeof checkboxStatesIn]
                         ? 'valueFrom'
                         : 'value',
                       e.target.value
@@ -243,7 +262,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                     type="checkbox"
                     checked={!!item.valueFrom}
                     onChange={e =>
-                      handleCheckboxChange(index, e.target.checked)
+                      handleCheckboxChange(index, e.target.checked, true)
                     }
                   />
                   <p>From name</p>
@@ -322,11 +341,26 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                   type="text"
                   placeholder="Type"
                   defaultValue={item.value || item.valueFrom}
+                  onChange={e =>
+                    handleOutputChange(
+                      index,
+                      checkboxStatesOut[index as keyof typeof checkboxStatesIn]
+                        ? 'valueFrom'
+                        : 'value',
+                      e.target.value
+                    )
+                  }
                 />
               </div>
               <div className="jp-Group">
                 <div className="jp-CheckboxInline">
-                  <input type="checkbox" defaultChecked />
+                  <input
+                    type="checkbox"
+                    checked={!!item.valueFrom}
+                    onChange={e =>
+                      handleCheckboxChange(index, e.target.checked, false)
+                    }
+                  />
                   <p>From name</p>
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
