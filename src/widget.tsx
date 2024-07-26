@@ -97,8 +97,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
 
     const newItem = {
       name: outputName,
-      type: 'name', // default type
-      valueFrom: '' // default value
+      type: 'name'
     };
     setWorkflowStepOut([...workflowStepOut, newItem]);
 
@@ -164,8 +163,8 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setWorkflowStepOut(newWorkflowStepOut);
   };
 
-  const scatter = metadata?.workflow?.step?.scatter || [];
-
+  let scatter = metadata?.workflow?.step?.scatter || [];
+  console.log('scatterINIT', scatter);
   console.log('workflowStepIn', workflowStepIn);
   console.log('workflowStepOut', workflowStepOut);
 
@@ -285,7 +284,16 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       <hr />
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
-        <MyEditor metadata={{ scatter }} onValueChange={() => {}} />
+        <MyEditor
+          metadata={{ scatter }}
+          onValueChange={value => {
+            const newValue = JSON.parse(value);
+            console.log(newValue.scatter);
+            scatter = newValue.scatter;
+            metadata.workflow.step.scatter = scatter;
+            console.log('scatterAGGIORNATO', scatter);
+          }}
+        />
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
