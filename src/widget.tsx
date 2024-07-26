@@ -291,7 +291,8 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
             console.log(newValue.scatter);
             scatter = newValue.scatter;
             metadata.workflow.step.scatter = scatter;
-            console.log('scatterAGGIORNATO', scatter);
+            console.log('scatterAGGIORNATO', scatter); //gestire il caso in cui scatter è vuoto
+            // e quando scrivi qualcosa male nel json parse
           }}
         />
       </div>
