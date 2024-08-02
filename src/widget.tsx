@@ -187,8 +187,6 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       metadata.workflow.step.scatter = wfScatter;
     }
 
-    console.log('metadata', metadata);
-
     setOutputName(''); // clear the output field
     setOutputRepeatError(false); // clear the error state
     setOutputError(false); // clear the error state
@@ -248,7 +246,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setWorkflowStepOut(newWorkflowStepOut);
   };
 
-  let scatter = metadata?.workflow?.step?.scatter || [];
+  let scatter = metadata?.workflow?.step?.scatter || {};
   console.log('scatterINIT', scatter);
   console.log('workflowStepIn', workflowStepIn);
   console.log('workflowStepOut', workflowStepOut);
@@ -378,6 +376,11 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
                 console.log(newValue.scatter);
                 scatter = newValue.scatter;
                 metadata.workflow.step.scatter = scatter;
+                if (Object.keys(scatter).length > 0) {
+                  metadata.workflow.step.scatter = scatter;
+                } else {
+                  delete metadata.workflow.step.scatter;
+                }
                 console.log('scatterAGGIORNATO', scatter);
               } else {
                 console.log('scatter is empty');
