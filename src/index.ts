@@ -88,8 +88,17 @@ class EditBar extends Widget {
           console.log('newValue', newValue);
           // Update the metadata with the new value
           metadata = newValue;
-          console.log('CLICKED');
-          cell.metadata = metadata;
+          console.log('CLICKED: metadata', metadata);
+          // Delete all metadata
+          for (const key in cell.model.metadata) {
+            cell.model.deleteMetadata(key);
+          }
+          console.log('1METADATA DOPO SETJSONN: ', cell.model.metadata);
+          // Set the new metadata
+          for (const key in metadata) {
+            cell.model.setMetadata(key, metadata[key]);
+          }
+          console.log('2METADATA DOPO SETJSONN: ', cell.model.metadata);
 
           // Create a widget with the success message and an icon
           const successWidget = new Widget();

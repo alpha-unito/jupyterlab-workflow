@@ -45,9 +45,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       name: inputName,
       type: 'name' // default type
     };
-    setWorkflowStepIn([...workflowStepIn, newItem]);
+    const newWorkflowStepIn = [...workflowStepIn, newItem];
+    setWorkflowStepIn(newWorkflowStepIn);
 
-    metadata.workflow.step.in = [...workflowStepIn, newItem];
+    if (!metadata.workflow) {
+      metadata.workflow = { step: {} };
+    }
+    if (!metadata.workflow.step) {
+      metadata.workflow.step = {};
+    }
+    metadata.workflow.step.in = newWorkflowStepIn;
+
+    const { in: wfIn, out: wfOut, scatter: wfScatter } = metadata.workflow.step;
+    metadata.workflow.step = {};
+    if (wfIn) {
+      metadata.workflow.step.in = wfIn;
+    }
+    if (wfOut) {
+      metadata.workflow.step.out = wfOut;
+    }
+    if (wfScatter) {
+      metadata.workflow.step.scatter = wfScatter;
+    }
+
     console.log('metadata', metadata);
 
     setInputName(''); // clear the input field
@@ -63,22 +83,24 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
   const [outputError, setOutputError] = useState(false);
 
   const handleDeleteInputClick = (name: string) => {
-    setWorkflowStepIn(workflowStepIn.filter((item: any) => item.name !== name));
-    if (metadata.workflow.step.in) {
-      metadata.workflow.step.in = metadata.workflow.step.in.filter(
-        (item: any) => item.name !== name
-      );
+    const newWorkflowStepIn = workflowStepIn.filter(
+      (item: any) => item.name !== name
+    );
+    setWorkflowStepIn(newWorkflowStepIn);
+
+    if (metadata.workflow?.step?.in) {
+      metadata.workflow.step.in = newWorkflowStepIn;
     }
   };
 
   const handleDeleteOutputClick = (name: string) => {
-    setWorkflowStepOut(
-      workflowStepOut.filter((item: any) => item.name !== name)
+    const newWorkflowStepOut = workflowStepOut.filter(
+      (item: any) => item.name !== name
     );
-    if (metadata.workflow.step.out) {
-      metadata.workflow.step.out = metadata.workflow.step.out.filter(
-        (item: any) => item.name !== name
-      );
+    setWorkflowStepOut(newWorkflowStepOut);
+
+    if (metadata.workflow?.step?.out) {
+      metadata.workflow.step.out = newWorkflowStepOut;
     }
   };
 
@@ -100,9 +122,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       name: outputName,
       type: 'name'
     };
-    setWorkflowStepOut([...workflowStepOut, newItem]);
+    const newWorkflowStepOut = [...workflowStepOut, newItem];
+    setWorkflowStepOut(newWorkflowStepOut);
 
-    metadata.workflow.step.out = [...workflowStepOut, newItem];
+    if (!metadata.workflow) {
+      metadata.workflow = { step: {} };
+    }
+    if (!metadata.workflow.step) {
+      metadata.workflow.step = {};
+    }
+    metadata.workflow.step.out = newWorkflowStepOut;
+
+    const { in: wfIn, out: wfOut, scatter: wfScatter } = metadata.workflow.step;
+    metadata.workflow.step = {};
+    if (wfIn) {
+      metadata.workflow.step.in = wfIn;
+    }
+    if (wfOut) {
+      metadata.workflow.step.out = wfOut;
+    }
+    if (wfScatter) {
+      metadata.workflow.step.scatter = wfScatter;
+    }
+
     console.log('metadata', metadata);
 
     setOutputName(''); // clear the output field
