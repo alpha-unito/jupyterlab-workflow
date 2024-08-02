@@ -88,8 +88,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     );
     setWorkflowStepIn(newWorkflowStepIn);
 
-    if (metadata.workflow?.step?.in) {
+    if (!metadata.workflow) {
+      metadata.workflow = { step: {} };
+    }
+    if (!metadata.workflow.step) {
+      metadata.workflow.step = {};
+    }
+
+    if (newWorkflowStepIn.length > 0) {
       metadata.workflow.step.in = newWorkflowStepIn;
+    } else {
+      delete metadata.workflow.step.in;
+    }
+
+    const { in: wfIn, out: wfOut, scatter: wfScatter } = metadata.workflow.step;
+    metadata.workflow.step = {};
+    if (wfIn) {
+      metadata.workflow.step.in = wfIn;
+    }
+    if (wfOut) {
+      metadata.workflow.step.out = wfOut;
+    }
+    if (wfScatter) {
+      metadata.workflow.step.scatter = wfScatter;
     }
   };
 
@@ -99,8 +120,29 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     );
     setWorkflowStepOut(newWorkflowStepOut);
 
-    if (metadata.workflow?.step?.out) {
+    if (!metadata.workflow) {
+      metadata.workflow = { step: {} };
+    }
+    if (!metadata.workflow.step) {
+      metadata.workflow.step = {};
+    }
+
+    if (newWorkflowStepOut.length > 0) {
       metadata.workflow.step.out = newWorkflowStepOut;
+    } else {
+      delete metadata.workflow.step.out;
+    }
+
+    const { in: wfIn, out: wfOut, scatter: wfScatter } = metadata.workflow.step;
+    metadata.workflow.step = {};
+    if (wfIn) {
+      metadata.workflow.step.in = wfIn;
+    }
+    if (wfOut) {
+      metadata.workflow.step.out = wfOut;
+    }
+    if (wfScatter) {
+      metadata.workflow.step.scatter = wfScatter;
     }
   };
 
