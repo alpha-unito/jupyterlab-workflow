@@ -9,6 +9,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import { useEffect } from 'react';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/edit/closebrackets';
 
 function TopArea() {
   return <div className="jp-TopArea">Hello JupyterLab Workflow!</div>;
@@ -287,12 +288,21 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
         <MyEditor
           metadata={{ scatter }}
           onValueChange={value => {
-            const newValue = JSON.parse(value);
-            console.log(newValue.scatter);
-            scatter = newValue.scatter;
-            metadata.workflow.step.scatter = scatter;
-            console.log('scatterAGGIORNATO', scatter); //gestire il caso in cui scatter è vuoto
-            // e quando scrivi qualcosa male nel json parse
+            try {
+              const newValue = JSON.parse(value);
+              if (newValue && newValue.scatter) {
+                console.log(newValue.scatter);
+                scatter = newValue.scatter;
+                metadata.workflow.step.scatter = scatter;
+                console.log('scatterAGGIORNATO', scatter);
+              } else {
+                console.log('scatter is empty');
+                // Handle the case where scatter is empty
+              }
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
+              // Handle the error as needed, for example, show an error message to the user
+            }
           }}
         />
       </div>
@@ -471,7 +481,9 @@ export function MyEditor({
             lineNumbers: true,
             theme: 'darcula',
             mode: 'application/json',
-            lineWrapping: true
+            lineWrapping: true,
+            autoCloseBrackets: true,
+            indentWithTabs: true
           }}
           onBeforeChange={(editor, data, value) => {
             setValue(value);
