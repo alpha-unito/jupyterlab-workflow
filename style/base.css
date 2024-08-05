@@ -507,7 +507,9 @@
 .jp-ErrorText{
   color: red;
   font-weight: bold;
+  text-align: center;
   padding: 4px;
+  max-width: 50%;
 }
 
 /* .jp-BottomButtons > button:nth-child(3):hover {

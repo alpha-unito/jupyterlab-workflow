@@ -246,7 +246,8 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setWorkflowStepOut(newWorkflowStepOut);
   };
 
-  let scatter = metadata?.workflow?.step?.scatter || {};
+  const scatter = metadata?.workflow?.step?.scatter || {};
+  const [error, setError] = useState('');
   console.log('scatterINIT', scatter);
   console.log('workflowStepIn', workflowStepIn);
   console.log('workflowStepOut', workflowStepOut);
@@ -291,7 +292,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               Add
             </button>
           </div>
-          <div className="jp-InputErrorText jp-ErrorText">
+          <div className="jp-ErrorText">
             {inputError && 'WARNING: Specify the input name you want to add.'}
             {inputRepeatError &&
               'WARNING: This name is already used. Please choose a different name.'}
@@ -368,30 +369,34 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       <div className="jp-ScatterContainer">
         <h2>Scatter</h2>
         <MyEditor
-          metadata={{ scatter }}
+          metadata={scatter}
           onValueChange={value => {
             try {
               const newValue = JSON.parse(value);
-              if (newValue && newValue.scatter) {
-                console.log(newValue.scatter);
-                scatter = newValue.scatter;
-                metadata.workflow.step.scatter = scatter;
-                if (Object.keys(scatter).length > 0) {
-                  metadata.workflow.step.scatter = scatter;
-                } else {
+              if (newValue && Object.keys(newValue).length > 0) {
+                if (!metadata.workflow) {
+                  metadata.workflow = {};
+                }
+                if (!metadata.workflow.step) {
+                  metadata.workflow.step = {};
+                }
+                metadata.workflow.step.scatter = newValue;
+                setError('');
+              } else {
+                if (metadata?.workflow?.step?.scatter) {
                   delete metadata.workflow.step.scatter;
                 }
-                console.log('scatterAGGIORNATO', scatter);
-              } else {
-                console.log('scatter is empty');
-                // Handle the case where scatter is empty
+                setError(
+                  'SCATTER IS EMPTY!! The edit will cause the removal of the scatter key.'
+                );
               }
-            } catch (error) {
+            } catch (error: any) {
               console.error('Error parsing JSON:', error);
-              // Handle the error as needed, for example, show an error message to the user
+              setError('ERROR PARSING JSON: ' + error.message);
             }
           }}
         />
+        <div className="jp-ErrorText">{error}</div>
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
@@ -411,7 +416,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
               Add
             </button>
           </div>
-          <div className="jp-InputErrorText jp-ErrorText">
+          <div className="jp-ErrorText">
             {outputError && 'WARNING: Specify the input name you want to add.'}
             {outputRepeatError &&
               'WARNING: This name is already used. Please choose a different name.'}
