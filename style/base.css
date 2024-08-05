@@ -493,8 +493,8 @@
 }
 
 .jp-PanelBackground{
-  background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),  url(../src/img/sfondo.webp);
-  padding-top: 20px;
+  /* background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),  url(../src/img/sfondo.webp);
+  padding-top: 20px; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -508,7 +508,24 @@
   color: red;
   font-weight: bold;
   text-align: center;
+  font-size: medium;
   padding: 4px;
+  max-width: 50%;
+}
+
+.jp-ValidLine{
+  height: 2px; 
+  width: 70%;
+  background-color: rgb(17, 199, 35);
+}
+
+.jp-ValidText{
+  color: rgb(17, 199, 35);
+  font-weight: bold;
+  text-align: center;
+  font-size: medium;
+  margin-bottom: 25px;
+  margin-top: 10px;
   max-width: 50%;
 }
 

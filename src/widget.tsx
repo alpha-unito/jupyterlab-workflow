@@ -246,6 +246,13 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
     setWorkflowStepOut(newWorkflowStepOut);
   };
 
+  const [backgroudChecked, setBackgroundChecked] = useState(true);
+  useEffect(() => {
+    if (workflowStepOut && workflowStepOut.length > 0) {
+      setBackgroundChecked(false);
+    }
+  }, [workflowStepOut]);
+
   const scatter = metadata?.workflow?.step?.scatter || {};
   const [error, setError] = useState('');
   console.log('scatterINIT', scatter);
@@ -261,7 +268,12 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
       <div className="jp-ConfigurationContainer">
         <h2>Configuration</h2>
         <div className="jp-CheckboxInline">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            disabled={workflowStepOut && workflowStepOut.length > 0}
+            checked={backgroudChecked}
+            onChange={() => setBackgroundChecked(!backgroudChecked)}
+          />
           <p>Execute in background</p>
           <FontAwesomeIcon
             icon={faQuestionCircle}
@@ -397,6 +409,8 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
           }}
         />
         <div className="jp-ErrorText">{error}</div>
+        {!error && <div className="jp-ValidLine"></div>}
+        <div className="jp-ValidText">{!error ? 'SCATTER VALIDO' : ''}</div>
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
