@@ -159,9 +159,9 @@ class EditBar extends Widget {
 
     button.onclick = () => {
       // If a panel is already open, remove it from the shell and dispose it
-      if (this.panel) {
-        return;
-      }
+      // if (this.panel) {
+      //   return;
+      // }
 
       // Create a new panel and add it to the main area
       this.panel = new Panel();
@@ -186,6 +186,21 @@ class EditBar extends Widget {
         cell.model.deleteMetadata();
         cell.model.setMetadata('workflow', metadata.workflow);
         console.log('METADATA DOPO SET: ', cell.model.metadata);
+        if (this.panel) {
+          this.panel.dispose(); // Chiude e pulisce il pannello
+        }
+      };
+
+      ResetButton.onclick = () => {
+        console.log('CANCELL: ', metadata);
+        console.log('EDITT UPDATED: ', EditorUpdatedMetadata);
+        // metadata = JSON.parse(JSON.stringify(EditorUpdatedMetadata));
+        cell.model.deleteMetadata('workflow');
+        metadata = cell.model.metadata;
+        console.log('METADATA DOPO SET: ', cell.model.metadata);
+        if (this.panel) {
+          this.panel.dispose(); // Chiude e pulisce il pannello
+        }
       };
 
       // Create div with class 'BottomButtons'
@@ -267,18 +282,26 @@ const plugin: JupyterFrontEndPlugin<void> = {
         cell.node.insertBefore(editBar.node, cell.node.firstChild);
       }
 
-      tracker.forEach(notebookPanel => {
-        notebookPanel.content.widgets.forEach(cell => {
-          const cellMetadata = cell.model.metadata;
-          const metadataJson = JSON.stringify(cellMetadata);
-          console.log('Metadata JSON:', metadataJson);
+      const observer = new MutationObserver(() => {
+        tracker.forEach(notebookPanel => {
+          notebookPanel.content.widgets.forEach(cell => {
+            const cellMetadata = cell.model.metadata;
+            const metadataJson = JSON.stringify(cellMetadata);
+            console.log('Metadata JSON:', metadataJson);
 
-          if ('workflow' in cell.model.metadata) {
-            // Change the background color of the cell
-            cell.node.style.backgroundColor = '#DBF9FF';
-          }
+            if ('workflow' in cell.model.metadata) {
+              // Change the background color of the cell
+              cell.node.style.backgroundColor = '#DBF9FF';
+            } else {
+              // Reset the background color of the cell
+              cell.node.style.backgroundColor = '';
+            }
+          });
         });
       });
+
+      // Start observing the document with the configured parameters
+      observer.observe(document, { childList: true, subtree: true });
 
       // Update the previous cell
       previousCell = cell;
