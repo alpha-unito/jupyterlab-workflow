@@ -192,12 +192,19 @@ class EditBar extends Widget {
       };
 
       ResetButton.onclick = () => {
-        console.log('CANCELL: ', metadata);
-        console.log('EDITT UPDATED: ', EditorUpdatedMetadata);
+        console.log('RESETTTT: ', metadata);
         // metadata = JSON.parse(JSON.stringify(EditorUpdatedMetadata));
         cell.model.deleteMetadata('workflow');
         metadata = cell.model.metadata;
         console.log('METADATA DOPO SET: ', cell.model.metadata);
+        if (this.panel) {
+          this.panel.dispose(); // Chiude e pulisce il pannello
+        }
+      };
+
+      CancelButton.onclick = () => {
+        console.log('CANCELL: ', metadata);
+        // metadata = JSON.parse(JSON.stringify(EditorUpdatedMetadata));
         if (this.panel) {
           this.panel.dispose(); // Chiude e pulisce il pannello
         }
