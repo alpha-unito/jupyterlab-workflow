@@ -270,6 +270,33 @@ const plugin: JupyterFrontEndPlugin<void> = {
     topArea.id = DOMUtils.createDomID();
     app.shell.add(topArea, 'top', { rank: 1000 });
 
+    //PROVAAA
+
+    const notebookPanel = tracker.currentWidget;
+    if (notebookPanel) {
+      console.log('Active notebook panel:', notebookPanel);
+    } else {
+      console.log('No active notebook at plugin activation.');
+    }
+
+    // Ascolta l'evento quando un notebook diventa attivo
+
+    tracker.currentChanged.connect((sender, notebook) => {
+      if (notebook) {
+        notebook.context.ready.then(() => {
+          if (notebook.model) {
+            // Access the metadata of the notebook
+            const notebookMetadata = notebook.model.metadata.workflow;
+
+            // Print the metadata of the notebook
+            console.log('Notebook Metadata:', notebookMetadata);
+          }
+        });
+      }
+    });
+
+    //////
+
     let previousCell: Cell | null = null;
 
     // Add a blue bar to the top of the active cell
@@ -292,9 +319,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const observer = new MutationObserver(() => {
         tracker.forEach(notebookPanel => {
           notebookPanel.content.widgets.forEach(cell => {
-            const cellMetadata = cell.model.metadata;
-            const metadataJson = JSON.stringify(cellMetadata);
-            console.log('Metadata JSON:', metadataJson);
+            // const cellMetadata = cell.model.metadata;
+            // const metadataJson = JSON.stringify(cellMetadata);
+            // // console.log('Metadata JSON:', metadataJson);
 
             if ('workflow' in cell.model.metadata) {
               // Change the background color of the cell
