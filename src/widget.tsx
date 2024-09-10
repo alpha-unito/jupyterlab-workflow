@@ -410,7 +410,7 @@ export function CreateDivWithText({ metadata }: { metadata: any }) {
         />
         <div className="jp-ErrorText">{error}</div>
         {!error && <div className="jp-ValidLine"></div>}
-        <div className="jp-ValidText">{!error ? 'SCATTER VALIDO' : ''}</div>
+        <div className="jp-ValidText">{!error ? 'VALID SCATTER' : ''}</div>
       </div>
       <hr />
       <div className="jp-OutputsInputsContainer">
