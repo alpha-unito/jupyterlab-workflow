@@ -7,13 +7,14 @@ import { Widget } from '@lumino/widgets';
 import { ReactWidget } from '@jupyterlab/apputils';
 import React from 'react';
 import { Panel } from '@lumino/widgets';
-import { INotebookTracker } from '@jupyterlab/notebook';
+import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';
 import { Cell } from '@jupyterlab/cells';
 import { topArea } from './widget';
 import { settingsIcon } from '@jupyterlab/ui-components';
 import { Dialog, showDialog } from '@jupyterlab/apputils';
 import { createEditorWidget } from './widget';
 import { CreateDivWithText } from './widget';
+import { ToolbarButton } from '@jupyterlab/apputils';
 import { checkIcon } from '@jupyterlab/ui-components';
 import { errorIcon } from '@jupyterlab/ui-components';
 /**
@@ -260,17 +261,65 @@ class EditBar extends Widget {
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab_workflow:plugin',
   description:
-    'Manage and modify HPC workflows directly from your jupyterLab environment with an intuitive interface.',
+    'Manage and modify HPC workflows directly from your JupyterLab environment with an intuitive interface.',
   autoStart: true,
   requires: [INotebookTracker],
   activate: (app: JupyterFrontEnd, tracker: INotebookTracker) => {
     console.log('jupyterlab_workflow is activated!');
 
-    // Add the imported widget to the top area of the application shell
+    // Existing code...
     topArea.id = DOMUtils.createDomID();
     app.shell.add(topArea, 'top', { rank: 1000 });
 
-    //PROVAAA
+    // Define the command for opening the modal dialog
+    const commandID = 'jupyterlab-workflow:open-modal-dialog';
+
+    app.commands.addCommand(commandID, {
+      label: 'Open Modal Dialog',
+      icon: settingsIcon, // Use any icon you prefer
+      execute: () => {
+        const node = document.createElement('div');
+        node.textContent = 'This is a modal dialog';
+
+        const body = new Widget({ node });
+
+        showDialog({
+          title: 'Modal Dialog',
+          body: body,
+          buttons: [Dialog.okButton()]
+        });
+      }
+    });
+
+    // Function to add the toolbar button to a notebook
+    function addButtonToToolbar(notebookPanel: NotebookPanel) {
+      notebookPanel.context.ready.then(() => {
+        if (
+          !Array.from(notebookPanel.toolbar.names()).includes(
+            'open-modal-dialog'
+          )
+        ) {
+          const button = new ToolbarButton({
+            icon: settingsIcon,
+            onClick: () => {
+              app.commands.execute(commandID);
+            },
+            tooltip: 'Open Modal Dialog'
+          });
+          notebookPanel.toolbar.insertItem(10, 'open-modal-dialog', button);
+        }
+      });
+    }
+
+    // Add the button to all existing notebooks
+    tracker.forEach(notebookPanel => {
+      addButtonToToolbar(notebookPanel);
+    });
+
+    // Add the button to notebooks that are opened later
+    tracker.widgetAdded.connect((sender, notebookPanel) => {
+      addButtonToToolbar(notebookPanel);
+    });
 
     const notebookPanel = tracker.currentWidget;
     if (notebookPanel) {
@@ -279,8 +328,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       console.log('No active notebook at plugin activation.');
     }
 
-    // Ascolta l'evento quando un notebook diventa attivo
-
+    // Listen for when a notebook becomes active
     tracker.currentChanged.connect((sender, notebook) => {
       if (notebook) {
         notebook.context.ready.then(() => {
@@ -295,8 +343,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       }
     });
 
-    //////
-
+    // Variable to keep track of the previous cell
     let previousCell: Cell | null = null;
 
     // Add a blue bar to the top of the active cell
@@ -319,10 +366,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const observer = new MutationObserver(() => {
         tracker.forEach(notebookPanel => {
           notebookPanel.content.widgets.forEach(cell => {
-            // const cellMetadata = cell.model.metadata;
-            // const metadataJson = JSON.stringify(cellMetadata);
-            // // console.log('Metadata JSON:', metadataJson);
-
             if ('workflow' in cell.model.metadata) {
               // Change the background color of the cell
               cell.node.style.backgroundColor = '#DBF9FF';
