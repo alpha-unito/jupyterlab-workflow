@@ -585,7 +585,7 @@ export function MyEditor({
           value={value}
           options={{
             lineNumbers: true,
-            theme: 'darcula',
+            theme: 'default',
             mode: 'application/json',
             lineWrapping: true,
             autoCloseBrackets: true,

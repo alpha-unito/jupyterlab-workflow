@@ -540,6 +540,14 @@ input::placeholder {
   max-width: 50%;
 }
 
+.cm-s-default .cm-property { /* JSON keys */
+  color: red;
+}
+
+.cm-s-default .cm-string { /* JSON string values */
+  color: black;
+}
+
 /* .jp-BottomButtons > button:nth-child(3):hover {
   background-color: #676161;
 } */
