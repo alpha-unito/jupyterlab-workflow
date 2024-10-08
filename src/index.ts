@@ -159,11 +159,6 @@ class EditBar extends Widget {
     };
 
     button.onclick = () => {
-      // If a panel is already open, remove it from the shell and dispose it
-      // if (this.panel) {
-      //   return;
-      // }
-
       // Create a new panel and add it to the main area
       this.panel = new Panel();
       this.panel.node.classList.add('jp-PanelBackground');
@@ -277,15 +272,57 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: 'Open Modal Dialog',
       icon: settingsIcon, // Use any icon you prefer
       execute: () => {
-        const node = document.createElement('div');
-        node.textContent = 'This is a modal dialog';
+        // const node = document.createElement('div');
+        // // Set the custom width and height of the content node
+        // node.style.width = '600px';
+        // node.style.height = '1500px';
+        // node.style.overflow = 'auto';
+        // Add your custom HTML content
 
-        const body = new Widget({ node });
+        const EditorUpdatedMetadata = {
+          /* your metadata */
+        };
+        const divWithText = React.createElement(CreateDivWithText, {
+          metadata: EditorUpdatedMetadata
+        });
 
-        showDialog({
-          title: 'Modal Dialog',
+        console.log(divWithText);
+        // Wrap the divWithText element inside a Widget
+        const widget = ReactWidget.create(divWithText);
+
+        // node.innerHTML = `
+        //   <h2>Custom Modal Dialog</h2>
+        //   <p>This is a custom modal dialog with HTML content.</p>
+        //   <p>You can add more HTML elements here.</p>
+        // `;
+
+        // Create a Widget with the custom node
+        const body = widget;
+
+        // Define your custom buttons
+        const button1 = Dialog.createButton({ label: 'Action 1' });
+        const button2 = Dialog.createButton({ label: 'Action 2' });
+        const button3 = Dialog.createButton({ label: 'Close', accept: true });
+
+        // Create a custom dialog instance
+        const dialog = new Dialog({
+          title: 'Custom Modal Dialog',
           body: body,
-          buttons: [Dialog.okButton()]
+          buttons: [button1, button2, button3]
+        });
+
+        // Launch the dialog
+        dialog.launch().then(result => {
+          // Handle the button click events
+          if (result.button.label === 'Action 1') {
+            // Perform action for Button 1
+            console.log('Action 1 executed');
+          } else if (result.button.label === 'Action 2') {
+            // Perform action for Button 2
+            console.log('Action 2 executed');
+          } else if (result.button.label === 'Close') {
+            console.log('Dialog closed');
+          }
         });
       }
     });
