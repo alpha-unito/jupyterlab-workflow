@@ -267,7 +267,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
   activate: (app: JupyterFrontEnd, tracker: INotebookTracker) => {
     console.log('jupyterlab_workflow is activated!');
 
-    // Existing code...
     topArea.id = DOMUtils.createDomID();
     app.shell.add(topArea, 'top', { rank: 1000 });
 
