@@ -308,6 +308,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         const dialog = new Dialog({
           title: 'Custom Modal Dialog',
           body: body,
+          hasClose: false,
           buttons: [button1, button2, button3]
         });
 
