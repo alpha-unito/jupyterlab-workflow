@@ -69,8 +69,6 @@
   align-items: center;
   padding: 10px;
   border-radius: 5px;
-  /* height: 100%;
-  width: 100%; */
 }
 
 .jp-PanelHeader {
@@ -171,7 +169,7 @@
   justify-content: center;
   text-align: center;
   align-items: center;
-  background-color: rgb(0, 0, 0);
+  background-color: black;
   color: white;
   width: 30px;
   height: 30px;
@@ -181,7 +179,7 @@
 }
 
 .jp-ButtonEye:hover {
-  background-color: rgb(235, 235, 235);
+  background-color: white;
   color: black;
 }
 
@@ -193,7 +191,7 @@
   flex-direction: column;
   background-color: white;
   row-gap: 5px;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
   border: 1px solid #006b8b;
   width: 100%;
 }
@@ -219,7 +217,7 @@
 }
 
 .jp-Row .jp-Delete .jp-Button:hover {
-  background-color: #ff0000;
+  background-color: red;
 }
 
 .jp-Group {
@@ -228,17 +226,17 @@
   text-align: center;
   align-items: center;
   flex-direction: column;
-  padding: 5px 0 5px 0;
-  margin: 5px 0 5px 0;
+  padding: 5px 0;
+  margin: 5px 0;
   width: 100%;
 }
 
 .jp-Group h3 {
-  color: #181818;
+  color: black;
 }
 
 .jp-Group .jp-CheckboxInline {
-  color: rgba(0, 0, 0, 0.815);
+  color: black;
 }
 
 input::placeholder {
@@ -262,6 +260,12 @@ input::placeholder {
   text-align: center;
 }
 
+.jp-AddNameContainer input {
+  width: 70%;
+  height: 30px;
+  text-align: center;
+}
+
 .jp-Group input:hover {
   border: 2px solid #006b8b;
 }
@@ -277,11 +281,6 @@ input::placeholder {
   width: 100%;
 }
 
-.jp-AddNameContainer input {
-  width: 70%;
-  height: 30px;
-  text-align: center;
-}
 
 .jp-AddNameContainer input::placeholder {
   color: grey;
@@ -290,12 +289,21 @@ input::placeholder {
 .jp-AddNameContainer button {
   width: 30%;
   height: 35px;
-  background-color: #03d426;
+  background-color: #0f0;
   color: white;
 }
 
+
+.jp-BottomButtons button {
+  border-radius: 5px;
+  text-align: center;
+  width: 8vh;
+  height: 30px;
+  border: 1px solid rgb(203, 203, 203);
+}
+
 .jp-AddNameContainer button:hover {
-  background-color: #00ff00;
+  background-color: #0f0;
 }
 
 .jp-Delete p {
@@ -345,7 +353,7 @@ input::placeholder {
 }
 
 .jp-BottomButtons {
-  border-top: 1px solid var(--jp-border-color2);
+  border-top: 1px solid gainsboro;
   background-color: whitesmoke;
   display: flex;
   justify-content: center;
@@ -354,19 +362,11 @@ input::placeholder {
   column-gap: 10px;
   padding: 10px;
   height: 40px;
-  padding: 10px;
   width: 100%;
   position: sticky;
   bottom: 0;
 }
 
-.jp-BottomButtons button {
-  border-radius: 5px;
-  text-align: center;
-  width: 8vh;
-  height: 30px;
-  border: 1px solid rgb(203, 203, 203);
-}
 
 .jp-BottomButtons button:hover {
   cursor: pointer;
@@ -377,18 +377,10 @@ input::placeholder {
   background-color: white;
 }
 
-/* .jp-BottomButtons > button:nth-child(1):hover {
-  background-color: #c1c1c1;
-} */
-
 .jp-BottomButtons > button:nth-child(2) {
   background-color: red;
   color: white;
 }
-
-/* .jp-BottomButtons > button:nth-child(2):hover {
-  background-color: #ff0000;
-} */
 
 .jp-BottomButtons > button:nth-child(3) {
   background-color: black;
@@ -406,33 +398,33 @@ input::placeholder {
   display: flex;
   max-height: 500px;
   width: 90%;
-  margin: 30px 10px 20px 10px;
+  margin: 30px 10px 20px;
   padding: 10px;
   border: 2px solid #006b8b;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-.editorCodeMirror .CodeMirror {
+.editorCodeMirror .code-mirror {
   height: 100%;
   width: 100%;
   line-height: 1.5;
   font-size: medium;
-  background-color: #f2f2f2; /* Light gray background color */
-  color: #181818; /* Dark gray text color */
-  font-family: 'Courier New', Courier, monospace; /* Monospace font */
+  background-color: #f2f2f2;
+  color: #181818; 
+  font-family: 'Courier New', Courier, monospace; 
 }
 
-.editorCodeMirror .CodeMirror div.CodeMirror-cursor {
+.editorCodeMirror .code-mirror div.code-mirror-cursor {
   border-left: 1px solid #383838; /* Dark gray cursor color */
 }
 
-.editorCodeMirror .CodeMirror .CodeMirror-linenumber {
+.editorCodeMirror .code-mirror .code-mirror-linenumber {
   color: #006b8b;
   font-weight: bold; /* Red color for line numbers */
 }
 
-.editorCodeMirror .CodeMirror .CodeMirror-gutters {
+.editorCodeMirror .code-mirror .code-mirror-gutters {
   background-color: #f2f2f2; /* Light gray background color */
   border-right: 1px solid #006b8b; /* Dark gray gutter color */
 }
@@ -460,12 +452,11 @@ input::placeholder {
   text-align: center;
   font-weight: bold;
   align-items: center;
-  border-bottom: 1px solid var(--jp-border-color2);
+  border-bottom: 1px solid gainsboro;
   border-radius: 5px;
-  margin-right: 32px;
+  margin: 5px 32px 5px 0px;
   font-size: 30px;
   padding: 15px;
-  margin: 5px 0 5px 0;
 }
 
 .jp-jsonEditDescription {
@@ -526,11 +517,11 @@ input::placeholder {
 .jp-ValidLine {
   height: 2px;
   width: 70%;
-  background-color: rgb(17, 199, 35);
+  background-color: #0f0;
 }
 
 .jp-ValidText {
-  color: rgb(17, 199, 35);
+  color: #0f0;
   font-weight: bold;
   text-align: center;
   font-size: medium;
@@ -542,11 +533,6 @@ input::placeholder {
 .cm-s-default .cm-property {
   /* JSON keys */
   color: red;
-}
-
-.cm-s-default .cm-string {
-  /* JSON string values */
-  color: black;
 }
 
 .jp-Dialog-content {
