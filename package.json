@@ -7,13 +7,13 @@
         "jupyterlab",
         "jupyterlab-extension"
     ],
-    "homepage": "https://github.com/Pier2690/jupyterlab-workflow",
+    "homepage": "https://github.com/alpha-unito/jupyterlab-workflow",
     "bugs": {
-        "url": "https://github.com/Pier2690/jupyterlab-workflow/issues"
+        "url": "https://github.com/alpha-unito/jupyterlab-workflow/issues"
     },
     "license": "BSD-3-Clause",
     "author": {
-        "name": "Pierluigi",
+        "name": "Pierluigi Boscaglia",
         "email": "Pier2690@gmail.com"
     },
     "files": [
@@ -26,7 +26,7 @@
     "style": "style/index.css",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Pier2690/jupyterlab-workflow.git"
+        "url": "https://github.com/alpha-unito/jupyterlab-workflow.git"
     },
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev",
