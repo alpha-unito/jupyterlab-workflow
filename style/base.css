@@ -281,7 +281,6 @@ input::placeholder {
   width: 100%;
 }
 
-
 .jp-AddNameContainer input::placeholder {
   color: grey;
 }
@@ -293,13 +292,12 @@ input::placeholder {
   color: white;
 }
 
-
 .jp-BottomButtons button {
   border-radius: 5px;
   text-align: center;
   width: 8vh;
   height: 30px;
-  border: 1px solid rgb(203, 203, 203);
+  border: 1px solid gainsboro;
 }
 
 .jp-AddNameContainer button:hover {
@@ -366,7 +364,6 @@ input::placeholder {
   position: sticky;
   bottom: 0;
 }
-
 
 .jp-BottomButtons button:hover {
   cursor: pointer;
@@ -494,8 +491,6 @@ input::placeholder {
 }
 
 .jp-PanelBackground {
-  /* background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),  url(../src/img/sfondo.webp);
-  padding-top: 20px; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
