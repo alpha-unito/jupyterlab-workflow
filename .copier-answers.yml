@@ -2,7 +2,7 @@
 _commit: v4.2.6
 _src_path: https://github.com/jupyterlab/extension-template
 author_email: Pier2690@gmail.com
-author_name: Pierluigi
+author_name: Pierluigi Boscaglia
 data_format: string
 file_extension: ''
 has_binder: true
@@ -14,7 +14,7 @@ mimetype_name: ''
 project_short_description: Manage and modify HPC workflows directly from your jupyterLab
     environment with an intuitive interface.
 python_name: jupyterlab_workflow
-repository: https://github.com/Pier2690/jupyterlab-workflow
+repository: https://github.com/alpha-unito/jupyterlab-workflow
 test: true
 viewer_name: ''
 
